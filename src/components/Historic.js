@@ -1,10 +1,7 @@
 import styled from "styled-components"
 import Ellipse2 from "../assets/images/Ellipse 2.png"
 import Vector from "../assets/images/Vector.png"
-import { useContext, useEffect, useState } from "react"
-import axios from "axios"
-import HabitsToday from "./HabitsToday"
-import dayjs from "dayjs"
+
 import { Link } from "react-router-dom"
 
 export default function Historic(){

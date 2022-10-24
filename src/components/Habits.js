@@ -1,6 +1,5 @@
 
 import styled from "styled-components"
-
 import Ellipse2 from "../assets/images/Ellipse 2.png"
 import Vector from "../assets/images/Vector.png"
 import Days from "./Days"
@@ -9,19 +8,22 @@ import axios from "axios"
 import UserContext from "./Context"
 import CreatedHabits from "./CreatedHabits"
 import { Link } from "react-router-dom"
+import  {  ThreeDots   }  from  'react-loader-spinner';
 
 export default function Habits() {
     const [display, setDisplay] = useState("");
     const [habit, setHabit] = useState("");
     const { selectedDay, setSelectedDay } = useContext(UserContext);
     const { createdHabits, setCreatedHabits } = useContext(UserContext);
+    const [load, setLoad] = useState(false);
+    const [loading, setLoading] = useState("Entrar");
     
-    console.log(createdHabits)
+    console.log(createdHabits.length)
 
     const image = JSON.parse(localStorage.getItem('image'));
     const token = JSON.parse(localStorage.getItem('token'));
-    console.log(image)
-    console.log(token)
+    //console.log(image)
+    //console.log(token)
 
 
     const days = [
@@ -46,7 +48,16 @@ export default function Habits() {
     }
 
     function salvar(e) {
-
+        setLoad(true);
+        setLoading(<ThreeDots 
+            height="40"
+            width="40"
+            radius="9"
+            color="#FFFFFF"
+            ariaLabel="loading"
+            wrapperStyle
+            wrapperClass
+          />)
         e.preventDefault()
         const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
 
@@ -68,7 +79,9 @@ export default function Habits() {
         })
 
         promisse.catch((err) => {
-            alert(err.response.data.message)
+            alert(err.response.data.message);
+            setLoading("Salvar");
+            setLoad(false);
         })
     }
 
@@ -83,7 +96,7 @@ export default function Habits() {
                 <ContainerAddHabit onSubmit={salvar} display={display}>
 
                     <div className="primeiro-input">
-                        <input
+                        <input disabled ={load}
                             id="habit"
                             type="text"
                             value={habit}
@@ -102,8 +115,8 @@ export default function Habits() {
                     </Select>
 
                     <Buttons>
-                        <button onClick={cancel} className="button1">Cancelar</button>
-                        <button type="submit" className="button2">Salvar</button>
+                        <button onClick={cancel} disabled ={load} className="button1">Cancelar</button>
+                        <button type="submit" disabled ={load} className="button2">{loading}</button>
                     </Buttons>
 
                 </ContainerAddHabit>
@@ -319,6 +332,7 @@ margin-left: 18px;
 const Buttons = styled.div`
 margin-left: 148px;
 margin-top: 26px;
+display: flex;
 
 .button1{
     background-color: #FFFFFF;
@@ -345,8 +359,11 @@ margin-top: 26px;
     text-align: center;
     margin-left: 15px;
     color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 `
 const TextVoid = styled.div`
-display: ${(prop) => prop.createdHabits === [] ? `` : `none`};
+display: ${(prop) => prop.createdHabits.length === 0 ? `` : `none`};
 `

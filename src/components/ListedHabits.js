@@ -10,7 +10,7 @@ export default function ListedHabits({ listedHabits }) {
     const { id, setId } = useContext(UserContext);
    
     const token = JSON.parse(localStorage.getItem('token'));
-    //console.log(listedHabits)
+    //console.log(listedHabits.id)
 
     const days = [
         { id: 0, initialletter: "D"},
@@ -27,7 +27,7 @@ export default function ListedHabits({ listedHabits }) {
 
     function deletHabit(e) {
         e.preventDefault()
-        setId(listedHabits.id);
+        const id = listedHabits.id;
 
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
 

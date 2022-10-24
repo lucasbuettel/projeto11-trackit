@@ -15,8 +15,9 @@ export default function Today(){
     const image = JSON.parse(localStorage.getItem('image'));
     const token = JSON.parse(localStorage.getItem('token'));
     const {habitToday, setHabitToday} = useContext(UserContext);
+    
    
-    console.log(habitToday.length);
+    console.log(habitToday);
     let cont = 0;
     let percernt = 0;
     let num = 0;
