@@ -111,7 +111,7 @@ export default function Habits() {
                 
                 <CreatedHabits/>
             </MainContent>
-            <Footer><Link to="/habitos"><p>Hábitos</p></Link> <p>Histórico</p></Footer>
+            <Footer><Link to="/habitos"><p>Hábitos</p></Link> <Link to="/historico"><p>Histórico</p></Link></Footer>
             <Link to="/hoje"><Circle ><img src={Ellipse2} /><p>Hoje</p> </Circle>
             <CurvedLine><img src={Vector} /></CurvedLine></Link>
         </Container>

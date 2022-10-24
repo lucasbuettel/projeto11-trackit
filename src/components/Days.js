@@ -26,7 +26,7 @@ export default function Days({ d, dayNumber}) {
          
         
     }
-    console.log(selectedDay)
+    //console.log(selectedDay)
     
     return (
 

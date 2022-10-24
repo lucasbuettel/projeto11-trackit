@@ -6,62 +6,9 @@ import axios from "axios"
 import HabitsToday from "./HabitsToday"
 import dayjs from "dayjs"
 import { Link } from "react-router-dom"
-import UserContext from "./Context"
 
-
-
-export default function Today(){
-
+export default function Historic(){
     const image = JSON.parse(localStorage.getItem('image'));
-    const token = JSON.parse(localStorage.getItem('token'));
-    const {habitToday, setHabitToday} = useContext(UserContext);
-   
-    console.log(habitToday.length);
-    let cont = 0;
-    let percernt = 0;
-    let num = 0;
-    function completedTasks(){
-        for (let k = 0; k < habitToday.length; k++) {
-            if(habitToday[k].done === true){
-                cont++;
-                percernt = cont/habitToday.length;
-            }
-
-            
-        }
-    } 
-    completedTasks();
-    num = (percernt*100).toFixed(0);
-    console.log(num);
-   
-
-    let customParseFormat = require('dayjs/plugin/customParseFormat')
-    dayjs.extend(customParseFormat);
-    require('dayjs/locale/pt-br');
-    let today = dayjs().locale('pt-br').format('dddd, DD/MM');
-    let portuguese = today[0].toUpperCase() + today.substring(1);
-    
-
-    useEffect(() => {
-        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
-        const promisse = axios.get(URL, {
-            headers: { authorization: `Bearer ${token}` }
-        });
-
-        promisse.then((res) => {
-            console.log(res.data);
-            setHabitToday(res.data);
-            
-        }
-        );
-        promisse.catch((err) => console.log(err.response.data.message));
-    }, []);
-   
-   
-
-
- 
-
     return(
         <>
             <Container>
@@ -69,18 +16,17 @@ export default function Today(){
                 <p>TrackIt</p> <img src={image} />
             </Header>
             <MainContent>
-            <TodayHabit><p>{portuguese}</p></TodayHabit>
-            <Percent percernt={percernt}> {num}% dos hábitos concluídos</Percent>
-            {habitToday.map((h,index) => <HabitsToday key={index} habit={h} />)}
+            <MyHistoric><p>Histórico</p></MyHistoric>
+            <h5>Em breve você poderá ver o histórico dos seus hábitos aqui!</h5>
             </MainContent>
             <Footer><Link to="/habitos"><p>Hábitos</p></Link> <Link to="/historico"><p>Histórico</p></Link></Footer>
             <Link to="/hoje"><Circle ><img src={Ellipse2} /><p>Hoje</p> </Circle>
             <CurvedLine><img src={Vector} /></CurvedLine></Link>
         </Container>
         </>
-    );
-}
+    )
 
+}
 const Container = styled.div`
 background-color: #E5E5E5;
 width: 100%;
@@ -126,11 +72,6 @@ const MainContent = styled.div`
 margin-top: 70px;
 height: 1000px;
 
-
-
-
-
-
 h1{
     font-family: 'Lexend Deca', sans-serif;
     font-size: 18px;
@@ -143,6 +84,19 @@ h1{
     display: flex;
     flex-wrap: wrap;
 
+}
+
+h5{
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color:#666666;
+    width: 350px;
+    margin-left: 17px;
+    margin-top: 17px;
+    display: flex;
+    flex-wrap: wrap;
 }
 `
 
@@ -200,8 +154,9 @@ width: 91px;
 left: 168px;
 top: 590px;
 `
-const TodayHabit = styled.div`
-   p{
+const MyHistoric = styled.div`
+
+p{
     height: 29px;
     width: 300px;
     padding-top: 28px;
@@ -212,17 +167,8 @@ const TodayHabit = styled.div`
     line-height: 29px;
     color: #126BA5;
 }
-`
-const Percent = styled.div`
-height: 22px;
-width: 278px;
-font-family: Lexend Deca;
-font-size: 18px;
-font-weight: 400;
-line-height: 22px;
-margin-left: 17px;
-text-align: left;
-color:${(prop) => prop.percernt === 0 ? `#BABABA` : `#8FC549`};
+h5{
 
+}
 
 `

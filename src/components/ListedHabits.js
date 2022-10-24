@@ -8,9 +8,9 @@ import ScheduledDay from "./ScheduledDay"
 export default function ListedHabits({ listedHabits }) {
 
     const { id, setId } = useContext(UserContext);
-    const { selectedDay, setSelectedDay } = useContext(UserContext);
+   
     const token = JSON.parse(localStorage.getItem('token'));
-    console.log(listedHabits)
+    //console.log(listedHabits)
 
     const days = [
         { id: 0, initialletter: "D"},
