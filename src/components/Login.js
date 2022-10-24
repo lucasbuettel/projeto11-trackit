@@ -22,9 +22,10 @@ export default function Login() {
         const promisse = axios.post(URL, body)
 
         promisse.then((res) => {
-            console.log(res.data)
-
-            navigate("/hoje");
+            console.log(res.data);
+            localStorage.setItem('token', JSON.stringify(res.data.token));
+            localStorage.setItem('image', JSON.stringify(res.data.image));
+            navigate("/habitos");
         })
 
         promisse.catch((err) => {
@@ -115,7 +116,6 @@ button{
     font-size: 21px;
     font-weight: 400;
     line-height: 26px;
-    letter-spacing: 0em;
     text-align: center;
 }
 p{
